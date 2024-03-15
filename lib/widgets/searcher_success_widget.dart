@@ -15,7 +15,7 @@ class SearcherSuccessWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     SearcherCubit searcherCubit = BlocProvider.of<SearcherCubit>(context);
 
-    return SizedBox(
+    return Expanded(
       child: ListView.builder(
         itemCount: state.repositories.length,
         itemBuilder: (context, index) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:repositories_searcher/bloc/cubit/favorite_cubit/favorite_cubit.dart';
 import 'package:repositories_searcher/bloc/cubit/searcher_cubit.dart';
 import 'package:repositories_searcher/resource/app_fonts.dart';
 import 'package:repositories_searcher/screens/search_screen.dart';
@@ -49,8 +50,11 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.backgroundMain,
         // primarySwatch: AppColors.accentPrimary,
       ),
-      home: BlocProvider(
-        create: (context) => SearcherCubit(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => SearcherCubit()),
+          BlocProvider(create: (context) => FavoriteCubit()),
+        ],
         child: SearchScreen(),
       ),
     );
