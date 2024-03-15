@@ -13,6 +13,15 @@ class SearcherLoading extends SearcherState {}
 
 class SearcherEmpty extends SearcherState {}
 
+class SavedRequests extends SearcherState {
+  final List<RepositoryModel> savedRequests;
+
+  SavedRequests(this.savedRequests);
+
+  @override
+  List<Object> get props => [savedRequests];
+}
+
 class SearcherSuccess extends SearcherState {
   final List<RepositoryModel> repositories;
 

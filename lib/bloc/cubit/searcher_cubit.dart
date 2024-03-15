@@ -21,6 +21,8 @@ class SearcherCubit extends Cubit<SearcherState> {
         emit(SearcherFailure(
             'Nothing was find for your search.\nPlease check the spelling'));
       } else {
+        savingRequests(repositories.first);
+
         emit(SearcherSuccess(repositories));
       }
     } catch (e) {
@@ -30,6 +32,21 @@ class SearcherCubit extends Cubit<SearcherState> {
 
   void cleanResult() {
     emit(SearcherEmpty());
+  }
+
+  void watchOldRequests() {
+    emit(SearcherInitial());
+  }
+
+  Future<void> getSavedRequests() async {
+    emit(SearcherLoading());
+    final List<RepositoryModel> savedRequests =
+        await savedService.getSavedRepository();
+    emit(SavedRequests(savedRequests));
+  }
+
+  Future<void> savingRequests(RepositoryModel repository) async {
+    await savedService.addSavedRepository(repository);
   }
 
   void toggleFavorite(RepositoryModel repository) {

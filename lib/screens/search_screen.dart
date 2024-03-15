@@ -4,6 +4,7 @@ import 'package:repositories_searcher/bloc/cubit/searcher_cubit.dart';
 import 'package:repositories_searcher/model/repositories_model.dart';
 import 'package:repositories_searcher/services/favorite_service.dart';
 import 'package:repositories_searcher/widgets/my_text_field.dart';
+import 'package:repositories_searcher/widgets/saved_result_widget.dart';
 import 'package:repositories_searcher/widgets/searcher_success_widget.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -17,6 +18,7 @@ class SearchScreen extends StatelessWidget {
       appBar: AppBar(
         title: Focus(
           onFocusChange: (hasFocus) {
+            print('hasFocus ${hasFocus}');
             searcherCubit.cleanResult();
           },
           child: MyTextField(),
@@ -32,8 +34,14 @@ class SearchScreen extends StatelessWidget {
       ),
       body: BlocBuilder<SearcherCubit, SearcherState>(
         builder: (context, state) {
+          print('111 state is ${state}');
           if (state is SearcherInitial) {
-            return Center(child: Text('SearcherInitial'));
+            print('44object');
+            searcherCubit.getSavedRequests();
+            return Center(child: CircularProgressIndicator());
+          } else if (state is SavedRequests) {
+            print('111{afsd}');
+            return Center(child: SavedResultWidget(state: state));
           } else if (state is SearcherLoading) {
             return Center(child: CircularProgressIndicator());
           } else if (state is SearcherEmpty) {
@@ -55,8 +63,8 @@ class SearchScreen extends StatelessWidget {
   }
 
   void _showFavoriteRepositories(BuildContext context) async {
-    final List<RepositoryModel> favorites =
-        await _favoriteService.getFavoriteRepositories();
+    final List<RepositoryModel> favorites = await _favoriteService
+        .getFavoriteRepositories(); // change to call cubit, not Service
     showDialog(
       context: context,
       builder: (context) {

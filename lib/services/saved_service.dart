@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:repositories_searcher/model/repositories_model.dart';
 
 class SavedRepositoryService {
-  static const _key = 'favorite_repositories';
+  static const _key = 'saved_repositories';
 
   Future<List<RepositoryModel>> getSavedRepository() async {
     final prefs = await SharedPreferences.getInstance();
@@ -13,7 +13,7 @@ class SavedRepositoryService {
         .toList();
   }
 
-  Future<void> addFavoriteRepository(RepositoryModel repository) async {
+  Future<void> addSavedRepository(RepositoryModel repository) async {
     final prefs = await SharedPreferences.getInstance();
     final savedRepository = await getSavedRepository();
 

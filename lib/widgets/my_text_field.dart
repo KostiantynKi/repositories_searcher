@@ -18,7 +18,6 @@ class _MyTextFieldState extends State<MyTextField> {
       ),
       onSubmitted: (value) {
         searcherCubit.searchRepositories(value);
-        // TODO: add a method that adds search text to history (savedRe)
       },
     );
   }

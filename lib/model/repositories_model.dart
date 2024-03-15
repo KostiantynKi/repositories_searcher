@@ -10,7 +10,6 @@ class RepositoryModel {
   });
 
   factory RepositoryModel.fromJson(Map<String, dynamic> json) {
-    print('111 ${json}');
     return RepositoryModel(
       name: json['name'],
       owner: json['owner']['login'],
@@ -19,7 +18,6 @@ class RepositoryModel {
   }
 
   factory RepositoryModel.fromSharedPreferences(Map<String, dynamic> json) {
-    print('111 ${json}');
     return RepositoryModel(
       name: json['name'],
       owner: json['owner'],
