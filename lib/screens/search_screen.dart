@@ -34,13 +34,10 @@ class SearchScreen extends StatelessWidget {
       ),
       body: BlocBuilder<SearcherCubit, SearcherState>(
         builder: (context, state) {
-          print('111 state is ${state}');
           if (state is SearcherInitial) {
-            print('44object');
             searcherCubit.getSavedRequests();
             return Center(child: CircularProgressIndicator());
           } else if (state is SavedRequests) {
-            print('111{afsd}');
             return Center(child: SavedResultWidget(state: state));
           } else if (state is SearcherLoading) {
             return Center(child: CircularProgressIndicator());
