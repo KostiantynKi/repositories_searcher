@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:repositories_searcher/bloc/cubit/searcher_cubit.dart';
 import 'package:repositories_searcher/resource/app_icons.dart';
+import 'package:repositories_searcher/widgets/reusable_widgets/custom_text_field.dart';
 import 'package:repositories_searcher/widgets/reusable_widgets/icon_buttons.dart';
 import 'package:repositories_searcher/widgets/reusable_widgets/search_cards.dart';
 import 'package:repositories_searcher/widgets/reusable_widgets/svg_picture_form_asset.dart';
 
-class SavedResultWidget extends StatelessWidget {
+class SavedResultWidget extends StatefulWidget {
   final SavedRequests state;
+
   const SavedResultWidget({Key? key, required this.state}) : super(key: key);
+
+  @override
+  State<SavedResultWidget> createState() => _SavedResultWidgetState();
+}
+
+class _SavedResultWidgetState extends State<SavedResultWidget> {
+  TextEditingController _textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +40,9 @@ class SavedResultWidget extends StatelessWidget {
           iconString: AppIcons.left,
           color: Colors.amber,
         ),
-        const SerchCard(),
+        const SerchCard(
+          text: 'aasfsafa',
+        ),
         MyIconButton(
           icon: AppIcons.left,
           onTap: () {
@@ -44,6 +55,10 @@ class SavedResultWidget extends StatelessWidget {
           onTap: () {
             print('favorite');
           },
+        ),
+        CustomTextField(
+          hintText: 'Search',
+          controller: _textController,
         ),
       ],
     );
