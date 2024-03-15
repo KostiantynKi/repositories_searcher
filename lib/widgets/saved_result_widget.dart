@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:repositories_searcher/bloc/cubit/searcher_cubit.dart';
 import 'package:repositories_searcher/resource/app_icons.dart';
+import 'package:repositories_searcher/widgets/reusable_widgets/icon_buttons.dart';
+import 'package:repositories_searcher/widgets/reusable_widgets/search_cards.dart';
 import 'package:repositories_searcher/widgets/reusable_widgets/svg_picture_form_asset.dart';
 
 class SavedResultWidget extends StatelessWidget {
@@ -9,25 +11,39 @@ class SavedResultWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        SvgPictureFromAsset(
+        const SvgPictureFromAsset(
           iconString: AppIcons.search,
         ),
-        SvgPictureFromAsset(
+        const SvgPictureFromAsset(
           iconString: AppIcons.cancel,
         ),
-        SvgPictureFromAsset(
+        const SvgPictureFromAsset(
           iconString: AppIcons.disabledFavorite,
           color: Colors.amber,
         ),
-        SvgPictureFromAsset(
+        const SvgPictureFromAsset(
           iconString: AppIcons.favorite,
           color: Colors.amber,
         ),
-        SvgPictureFromAsset(
+        const SvgPictureFromAsset(
           iconString: AppIcons.left,
           color: Colors.amber,
+        ),
+        const SerchCard(),
+        MyIconButton(
+          icon: AppIcons.left,
+          onTap: () {
+            print('left');
+          },
+        ),
+        const SizedBox(height: 10),
+        MyIconButton(
+          icon: AppIcons.favorite,
+          onTap: () {
+            print('favorite');
+          },
         ),
       ],
     );
