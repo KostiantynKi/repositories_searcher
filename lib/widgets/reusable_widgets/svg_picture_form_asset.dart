@@ -9,8 +9,8 @@ class SvgPictureFromAsset extends StatelessWidget {
 
   const SvgPictureFromAsset({
     required this.iconString,
-    this.height = 25,
-    this.width = 25,
+    this.height = 24,
+    this.width = 24,
     this.color,
     super.key,
   });
