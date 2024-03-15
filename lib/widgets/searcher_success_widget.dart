@@ -15,24 +15,26 @@ class SearcherSuccessWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     SearcherCubit searcherCubit = BlocProvider.of<SearcherCubit>(context);
 
-    return ListView.builder(
-      itemCount: state.repositories.length,
-      itemBuilder: (context, index) {
-        final repository = state.repositories[index];
-        return ListTile(
-          title: Text(repository.name),
-          subtitle: Text(repository.owner),
-          trailing: IconButton(
-            icon: repository.isFavorite
-                ? Icon(Icons.favorite)
-                : Icon(Icons.favorite_border),
-            onPressed: () {
-              searcherCubit.toggleFavorite(repository);
-            },
-          ),
-          onTap: () {},
-        );
-      },
+    return SizedBox(
+      child: ListView.builder(
+        itemCount: state.repositories.length,
+        itemBuilder: (context, index) {
+          final repository = state.repositories[index];
+          return ListTile(
+            title: Text(repository.name),
+            subtitle: Text(repository.owner),
+            trailing: IconButton(
+              icon: repository.isFavorite
+                  ? Icon(Icons.favorite)
+                  : Icon(Icons.favorite_border),
+              onPressed: () {
+                searcherCubit.toggleFavorite(repository);
+              },
+            ),
+            onTap: () {},
+          );
+        },
+      ),
     );
   }
 }

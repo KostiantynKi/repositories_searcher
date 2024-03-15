@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:repositories_searcher/bloc/cubit/searcher_cubit.dart';
 import 'package:repositories_searcher/resource/app_icons.dart';
 import 'package:repositories_searcher/theme/colors/app_colors.dart';
 import 'package:repositories_searcher/widgets/reusable_widgets/svg_picture_form_asset.dart';
@@ -28,6 +30,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final SearcherCubit searcherCubit = BlocProvider.of<SearcherCubit>(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -43,23 +47,21 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 )
               : Container(),
           Container(
-            child: TextFormField(
+            child: TextField(
               controller: widget.controller,
-
-              // textCapitalization: TextCapitalization.sentences,
-              // textInputAction: TextInputAction.next,
               style: Theme.of(context).textTheme.displayMedium,
               onTap: () {
                 setState(() {
                   _isFocused = true;
                 });
               },
-              onFieldSubmitted: (_) {
+              onSubmitted: (value) {
+                searcherCubit.searchRepositories(value);
+
                 setState(() {
                   _isFocused = false;
                 });
               },
-
               onChanged: (value) {
                 if (widget.onChanged != null) {
                   widget.onChanged!(value);
@@ -73,27 +75,25 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   _isFocused = false;
                 });
               },
-
               decoration: InputDecoration(
                 filled: true,
                 fillColor:
                     _isFocused ? AppColors.accentSecondary : AppColors.layer1,
                 suffixIcon: InkWell(
                   onTap: () {
-                    // todo: oчистить kонтроллер
                     widget.controller?.clear();
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                  child: const Padding(
+                    padding: EdgeInsets.all(16.0),
                     child: SizedBox(
-                      child: SvgPictureFromAsset(
+                      child: const SvgPictureFromAsset(
                         iconString: AppIcons.cancel,
                       ),
                     ),
                   ),
                 ),
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                prefixIcon: const Padding(
+                  padding: EdgeInsets.all(16.0),
                   child: SizedBox(
                     child: SvgPictureFromAsset(
                       iconString: AppIcons.search,
@@ -103,7 +103,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 hintText: widget.hintText,
                 hintStyle: Theme.of(context).textTheme.bodyMedium,
                 contentPadding:
-                    EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide(
@@ -115,7 +115,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: AppColors.layer1,
                     width: 0.0,
                   ),
