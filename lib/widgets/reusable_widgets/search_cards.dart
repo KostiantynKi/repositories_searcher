@@ -5,9 +5,14 @@ import 'package:repositories_searcher/widgets/reusable_widgets/svg_picture_form_
 
 class SerchCard extends StatelessWidget {
   final String text;
+  final VoidCallback onTap;
+  final bool isFavorite;
+
   const SerchCard({
     super.key,
     required this.text,
+    required this.onTap,
+    required this.isFavorite,
   });
 
   static const double radius = 16.0;
@@ -37,14 +42,20 @@ class SerchCard extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       '$text',
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(right: paddingRight),
-                  child: SvgPictureFromAsset(
-                    iconString: AppIcons.favorite,
-                    color: AppColors.textPlaceholder,
+                  child: InkWell(
+                    onTap: onTap,
+                    child: SvgPictureFromAsset(
+                      iconString: AppIcons.favorite,
+                      color: isFavorite
+                          ? AppColors.accentPrimary
+                          : AppColors.textPlaceholder,
+                    ),
                   ),
                 )
               ],

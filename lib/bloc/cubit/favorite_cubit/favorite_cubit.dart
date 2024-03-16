@@ -11,16 +11,15 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   final FavoriteService _favoriteService = FavoriteService();
 
   Future<void> getFavoriteRepositories() async {
-    emit(FavoriteLoading());
-
     final List<RepositoryModel> favorites =
         await _favoriteService.getFavoriteRepositories();
+
     if (favorites.isEmpty) {
       emit(FavoriteEmpty(
           'You have no favorites.\nClick on star while searching to add first favorite'));
-    } else
-      print('favorites.len ${favorites.length}');
-    emit(FavoriteLoaded(favorites));
+    } else {
+      emit(FavoriteLoaded(favorites));
+    }
   }
 
   void toggleFavorite(RepositoryModel favorites) {

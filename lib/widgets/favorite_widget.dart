@@ -1,7 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:repositories_searcher/bloc/cubit/favorite_cubit/favorite_cubit.dart';
+import 'package:repositories_searcher/widgets/reusable_widgets/search_cards.dart';
 
 class FavoriteWidget extends StatelessWidget {
   final FavoriteLoaded state;
@@ -19,18 +19,13 @@ class FavoriteWidget extends StatelessWidget {
       itemCount: state.favorites.length,
       itemBuilder: (context, index) {
         final repository = state.favorites[index];
-        return ListTile(
-          title: Text(repository.name),
-          subtitle: Text(repository.owner),
-          trailing: IconButton(
-            icon: repository.isFavorite
-                ? Icon(Icons.favorite)
-                : Icon(Icons.favorite_border),
-            onPressed: () {
-              searcherCubit.toggleFavorite(repository);
-            },
-          ),
-          onTap: () {},
+        repository.isFavorite = true;
+        return SerchCard(
+          text: repository.name,
+          onTap: () {
+            searcherCubit.toggleFavorite(repository);
+          },
+          isFavorite: repository.isFavorite,
         );
       },
     );

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:repositories_searcher/bloc/cubit/searcher_cubit.dart';
+import 'package:repositories_searcher/widgets/reusable_widgets/search_cards.dart';
 
 class SearcherSuccessWidget extends StatelessWidget {
   final SearcherSuccess state;
@@ -20,18 +21,15 @@ class SearcherSuccessWidget extends StatelessWidget {
         itemCount: state.repositories.length,
         itemBuilder: (context, index) {
           final repository = state.repositories[index];
-          return ListTile(
-            title: Text(repository.name),
-            subtitle: Text(repository.owner),
-            trailing: IconButton(
-              icon: repository.isFavorite
-                  ? Icon(Icons.favorite)
-                  : Icon(Icons.favorite_border),
-              onPressed: () {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: SerchCard(
+              text: repository.name,
+              onTap: () {
                 searcherCubit.toggleFavorite(repository);
               },
+              isFavorite: repository.isFavorite,
             ),
-            // onTap: () {},
           );
         },
       ),

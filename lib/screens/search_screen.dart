@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:repositories_searcher/bloc/cubit/favorite_cubit/favorite_cubit.dart';
 import 'package:repositories_searcher/bloc/cubit/searcher_cubit.dart';
 import 'package:repositories_searcher/resource/app_icons.dart';
 import 'package:repositories_searcher/screens/favorite_screen.dart';
@@ -14,6 +16,7 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SearcherCubit searcherCubit = BlocProvider.of<SearcherCubit>(context);
+    final FavoriteCubit favoriteCubit = BlocProvider.of<FavoriteCubit>(context);
     TextEditingController textController = TextEditingController();
 
     return Scaffold(
@@ -29,6 +32,7 @@ class SearchScreen extends StatelessWidget {
                 child: MyIconButton(
                   icon: AppIcons.favorite,
                   onTap: () {
+                    favoriteCubit.getFavoriteRepositories();
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -55,11 +59,11 @@ class SearchScreen extends StatelessWidget {
             builder: (context, state) {
               if (state is SearcherInitial) {
                 searcherCubit.getSavedRequests();
-                return Center(child: CircularProgressIndicator());
+                return Center(child: CupertinoActivityIndicator());
               } else if (state is SavedRequests) {
                 return Center(child: SavedResultWidget(state: state));
               } else if (state is SearcherLoading) {
-                return Center(child: CircularProgressIndicator());
+                return Center(child: CupertinoActivityIndicator());
               } else if (state is SearcherEmpty) {
                 return Center(child: Container());
               } else if (state is SearcherFailure) {

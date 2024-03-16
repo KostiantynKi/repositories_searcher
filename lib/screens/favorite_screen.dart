@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:repositories_searcher/bloc/cubit/favorite_cubit/favorite_cubit.dart';
@@ -28,7 +29,6 @@ class FavoriteScreen extends StatelessWidget {
             child: MyIconButton(
               icon: AppIcons.left,
               onTap: () {
-                print('left');
                 Navigator.pop(context);
               },
             ),
@@ -40,8 +40,11 @@ class FavoriteScreen extends StatelessWidget {
           if (state is FavoriteLoaded) {
             return FavoriteWidget(state: state);
           } else if (state is FavoriteInitial) {
+            return Center(child: CupertinoActivityIndicator());
+          } else if (state is FavoriteLoading) {
             favoriteCubit.getFavoriteRepositories();
-            return Center(child: CircularProgressIndicator());
+
+            return Center(child: CupertinoActivityIndicator());
           } else
             return Container();
         },

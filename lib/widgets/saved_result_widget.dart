@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:repositories_searcher/bloc/cubit/searcher_cubit.dart';
+import 'package:repositories_searcher/widgets/reusable_widgets/search_cards.dart';
 
 class SavedResultWidget extends StatefulWidget {
   final SavedRequests state;
@@ -11,28 +13,25 @@ class SavedResultWidget extends StatefulWidget {
 }
 
 class _SavedResultWidgetState extends State<SavedResultWidget> {
-  TextEditingController _textController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
-    return Container();
-    // ListView.builder(
-    //   itemCount: state.savedRequests.length,
-    //   reverse: true,
-    //   itemBuilder: (context, index) {
-    //     final repository = state.savedRequests[index];
-    //     return ListTile(
-    //       title: Text(repository.name),
-    //       subtitle: Text(repository.owner),
-    //       trailing: IconButton(
-    //         icon: repository.isFavorite
-    //             ? Icon(Icons.favorite)
-    //             : Icon(Icons.favorite_border),
-    //         onPressed: () {},
-    //       ),
-    //       onTap: () {},
-    //     );
-    //   },
-    // );
+    SearcherCubit searcherCubit = BlocProvider.of<SearcherCubit>(context);
+
+    return SizedBox(
+      height: MediaQuery.of(context).size.height / 2,
+      child: ListView.builder(
+        itemCount: widget.state.savedRequests.length,
+        itemBuilder: (context, index) {
+          final repository = widget.state.savedRequests[index];
+          return SerchCard(
+            text: repository.name,
+            onTap: () {
+              searcherCubit.toggleFavorite(repository);
+            },
+            isFavorite: repository.isFavorite,
+          );
+        },
+      ),
+    );
   }
 }

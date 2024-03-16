@@ -19,7 +19,7 @@ class MyIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.all(
+      borderRadius: const BorderRadius.all(
         Radius.circular(radius),
       ),
       child: InkWell(
