@@ -7,9 +7,11 @@ import 'package:repositories_searcher/widgets/reusable_widgets/icon_buttons.dart
 
 class FavoriteScreen extends StatelessWidget {
   static const String title = 'Favorite repos list';
+  // final FavoriteCubit favoriteCubit;
 
   const FavoriteScreen({
     super.key,
+    // required this.favoriteCubit,
   });
 
   @override

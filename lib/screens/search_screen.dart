@@ -50,7 +50,6 @@ class SearchScreen extends StatelessWidget {
               hintText: 'Search',
               controller: _textController,
             ),
-            // MyTextField(),
           ),
           BlocBuilder<SearcherCubit, SearcherState>(
             builder: (context, state) {

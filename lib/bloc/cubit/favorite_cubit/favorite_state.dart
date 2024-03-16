@@ -11,7 +11,14 @@ final class FavoriteInitial extends FavoriteState {}
 
 class FavoriteLoading extends FavoriteState {}
 
-class FavoriteEmpty extends FavoriteState {}
+class FavoriteEmpty extends FavoriteState {
+  final String errorMessage;
+
+  FavoriteEmpty(this.errorMessage);
+
+  @override
+  List<Object> get props => [errorMessage];
+}
 
 class FavoriteLoaded extends FavoriteState {
   final List<RepositoryModel> favorites;

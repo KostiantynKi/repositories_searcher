@@ -8,14 +8,18 @@ part 'favorite_state.dart';
 class FavoriteCubit extends Cubit<FavoriteState> {
   FavoriteCubit() : super(FavoriteInitial());
 
-  FavoriteService _favoriteService = FavoriteService();
+  final FavoriteService _favoriteService = FavoriteService();
 
   Future<void> getFavoriteRepositories() async {
     emit(FavoriteLoading());
 
     final List<RepositoryModel> favorites =
         await _favoriteService.getFavoriteRepositories();
-    emit(FavoriteLoaded(favorites));
+    if (favorites.isEmpty) {
+      emit(FavoriteEmpty(
+          'You have no favorites.\nClick on star while searching to add first favorite'));
+    } else
+      emit(FavoriteLoaded(favorites));
   }
 
   void toggleFavorite(RepositoryModel favorites) {
