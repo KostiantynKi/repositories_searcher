@@ -22,4 +22,5 @@ This application relies on the following dependencies:
   
 ## Screenshots
 
-<img width="278" alt="image" src="https://github.com/KostiantynKi/repositories_searcher/assets/90638460/fc97a817-c0cd-4c78-a76c-f292f1662dc2">
+<img width="289" alt="image" src="https://github.com/KostiantynKi/repositories_searcher/assets/90638460/21b28a73-2fa7-4a56-b0b9-cedaffdb9901">
+
