@@ -14,7 +14,7 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SearcherCubit searcherCubit = BlocProvider.of<SearcherCubit>(context);
-    TextEditingController _textController = TextEditingController();
+    TextEditingController textController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -48,7 +48,7 @@ class SearchScreen extends StatelessWidget {
             },
             child: CustomTextField(
               hintText: 'Search',
-              controller: _textController,
+              controller: textController,
             ),
           ),
           BlocBuilder<SearcherCubit, SearcherState>(

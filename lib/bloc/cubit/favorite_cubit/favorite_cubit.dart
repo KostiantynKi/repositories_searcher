@@ -19,7 +19,8 @@ class FavoriteCubit extends Cubit<FavoriteState> {
       emit(FavoriteEmpty(
           'You have no favorites.\nClick on star while searching to add first favorite'));
     } else
-      emit(FavoriteLoaded(favorites));
+      print('favorites.len ${favorites.length}');
+    emit(FavoriteLoaded(favorites));
   }
 
   void toggleFavorite(RepositoryModel favorites) {

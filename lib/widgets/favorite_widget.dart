@@ -15,26 +15,24 @@ class FavoriteWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     FavoriteCubit searcherCubit = BlocProvider.of<FavoriteCubit>(context);
 
-    return Expanded(
-      child: ListView.builder(
-        itemCount: state.favorites.length,
-        itemBuilder: (context, index) {
-          final repository = state.favorites[index];
-          return ListTile(
-            title: Text(repository.name),
-            subtitle: Text(repository.owner),
-            trailing: IconButton(
-              icon: repository.isFavorite
-                  ? Icon(Icons.favorite)
-                  : Icon(Icons.favorite_border),
-              onPressed: () {
-                searcherCubit.toggleFavorite(repository);
-              },
-            ),
-            onTap: () {},
-          );
-        },
-      ),
+    return ListView.builder(
+      itemCount: state.favorites.length,
+      itemBuilder: (context, index) {
+        final repository = state.favorites[index];
+        return ListTile(
+          title: Text(repository.name),
+          subtitle: Text(repository.owner),
+          trailing: IconButton(
+            icon: repository.isFavorite
+                ? Icon(Icons.favorite)
+                : Icon(Icons.favorite_border),
+            onPressed: () {
+              searcherCubit.toggleFavorite(repository);
+            },
+          ),
+          onTap: () {},
+        );
+      },
     );
   }
 }

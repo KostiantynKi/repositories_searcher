@@ -31,7 +31,7 @@ class SearcherSuccessWidget extends StatelessWidget {
                 searcherCubit.toggleFavorite(repository);
               },
             ),
-            onTap: () {},
+            // onTap: () {},
           );
         },
       ),

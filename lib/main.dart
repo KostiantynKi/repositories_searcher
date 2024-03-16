@@ -13,46 +13,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return
-        // MaterialApp(
-        //   debugShowCheckedModeBanner: false,
-        // title: 'GitHub Search',
-        // theme: ThemeData(
-        //   textTheme: const TextTheme(
-        //     displayLarge: TextStyle(
-        //       fontFamily: 'Raleway',
-        //       fontSize: 16.0,
-        //       fontWeight: AppFonts.bold,
-        //       color: AppColors.textPrimary,
-        //       letterSpacing: 0.0,
-        //     ),
-        //     bodyMedium: TextStyle(
-        //       fontFamily: 'Raleway',
-        //       fontSize: 14.0,
-        //       fontWeight: AppFonts.regular,
-        //       color: AppColors.textPlaceholder,
-        //       letterSpacing: 0.0,
-        //     ),
-        //     displayMedium: TextStyle(
-        //       fontFamily: 'Raleway',
-        //       fontSize: 14.0,
-        //       fontWeight: AppFonts.regular,
-        //       color: AppColors.textPrimary,
-        //       letterSpacing: 0.0,
-        //     ),
-        //     labelLarge: TextStyle(
-        //       fontFamily: 'Raleway',
-        //       fontSize: 16.0,
-        //       fontWeight: AppFonts.regular,
-        //       color: AppColors.accentPrimary,
-        //       letterSpacing: 0.0,
-        //     ),
-        //   ),
-        //   scaffoldBackgroundColor: AppColors.backgroundMain,
-        //   // primarySwatch: AppColors.accentPrimary,
-        // ),
-        // home:
-        MultiBlocProvider(
+    return MultiBlocProvider(
       providers: [
         BlocProvider<SearcherCubit>(create: (context) => SearcherCubit()),
         BlocProvider<FavoriteCubit>(create: (context) => FavoriteCubit()),
@@ -91,7 +52,6 @@ class MyApp extends StatelessWidget {
               ),
             ),
             scaffoldBackgroundColor: AppColors.backgroundMain,
-            // primarySwatch: AppColors.accentPrimary,
           ),
           home: SearchScreen()),
     )
