@@ -13,12 +13,6 @@ class SearcherCubit extends Cubit<SearcherState> {
   FavoriteService _favoriteService = FavoriteService();
   SavedRepositoryService savedService = SavedRepositoryService();
 
-  Future<List<RepositoryModel>> getFavoriteRepositories() async {
-    final List<RepositoryModel> favorites =
-        await _favoriteService.getFavoriteRepositories();
-    return favorites;
-  }
-
   void searchRepositories(String query) async {
     emit(SearcherLoading());
     try {
@@ -38,10 +32,6 @@ class SearcherCubit extends Cubit<SearcherState> {
 
   void cleanResult() {
     emit(SearcherEmpty());
-  }
-
-  void watchOldRequests() {
-    emit(SearcherInitial());
   }
 
   Future<void> getSavedRequests() async {

@@ -13,4 +13,11 @@ class FavoriteLoading extends FavoriteState {}
 
 class FavoriteEmpty extends FavoriteState {}
 
-class FavoriteLoaded extends FavoriteState {}
+class FavoriteLoaded extends FavoriteState {
+  final List<RepositoryModel> favorites;
+
+  FavoriteLoaded(this.favorites);
+
+  @override
+  List<Object> get props => [favorites];
+}
