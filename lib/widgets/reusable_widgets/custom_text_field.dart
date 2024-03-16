@@ -82,11 +82,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 suffixIcon: InkWell(
                   onTap: () {
                     widget.controller?.clear();
+                    searcherCubit.getSavedRequests();
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(16.0),
                     child: SizedBox(
-                      child: const SvgPictureFromAsset(
+                      child: SvgPictureFromAsset(
                         iconString: AppIcons.cancel,
                       ),
                     ),
@@ -107,10 +108,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide(
-                    // color: AppColors.layer1,
                     color:
                         _isFocused ? AppColors.accentPrimary : AppColors.layer1,
-                    // color: Colors.red, _isFocused ? AppColors.accentSecondary : AppColors.layer1,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(

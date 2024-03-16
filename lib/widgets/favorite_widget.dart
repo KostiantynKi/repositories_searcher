@@ -20,12 +20,15 @@ class FavoriteWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         final repository = state.favorites[index];
         repository.isFavorite = true;
-        return SerchCard(
-          text: repository.name,
-          onTap: () {
-            searcherCubit.toggleFavorite(repository);
-          },
-          isFavorite: repository.isFavorite,
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: SerchCard(
+            text: repository.name,
+            onTap: () {
+              searcherCubit.toggleFavorite(repository);
+            },
+            isFavorite: repository.isFavorite,
+          ),
         );
       },
     );

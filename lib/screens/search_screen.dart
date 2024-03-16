@@ -44,15 +44,22 @@ class SearchScreen extends StatelessWidget {
         ],
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Focus(
             onFocusChange: (hasFocus) {
-              print('hasFocus ${hasFocus}');
               searcherCubit.cleanResult();
             },
             child: CustomTextField(
               hintText: 'Search',
               controller: textController,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text(
+              'What we have found',
+              style: Theme.of(context).textTheme.labelLarge,
             ),
           ),
           BlocBuilder<SearcherCubit, SearcherState>(

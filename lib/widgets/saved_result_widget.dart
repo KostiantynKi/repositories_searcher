@@ -23,12 +23,15 @@ class _SavedResultWidgetState extends State<SavedResultWidget> {
         itemCount: widget.state.savedRequests.length,
         itemBuilder: (context, index) {
           final repository = widget.state.savedRequests[index];
-          return SerchCard(
-            text: repository.name,
-            onTap: () {
-              searcherCubit.toggleFavorite(repository);
-            },
-            isFavorite: repository.isFavorite,
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: SerchCard(
+              text: repository.name,
+              onTap: () {
+                searcherCubit.toggleFavorite(repository);
+              },
+              isFavorite: repository.isFavorite,
+            ),
           );
         },
       ),
