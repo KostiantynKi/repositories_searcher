@@ -1,16 +1,25 @@
 # repositories_searcher
 
-A new Flutter project.
+This repository contains a Flutter application for searching GitHub repositories and managing favorite repositories.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- **Search Screen**: Allows users to search for GitHub repositories by name.
+- **Favorite Screen**: Displays a list of favorite repositories and allows users to manage their favorite repositories.
+- **Saving and Removing Repositories**: Users can save repositories to their favorites list and remove them as needed.
+- **Persistence**: The application uses shared preferences to persist saved repositories and favorites.
 
-A few resources to get you started if this is your first Flutter project:
+## Usage
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+To use this application, ensure you have Flutter installed on your development environment. Clone this repository, and then run the Flutter application using `flutter run`.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Dependencies
+
+This application relies on the following dependencies:
+- `bloc` and `flutter_bloc` for state management.
+- `equatable` for equality comparisons in Dart.
+- `shared_preferences` for storing and retrieving persistent data.
+  
+## Screenshots
+
+<img width="278" alt="image" src="https://github.com/KostiantynKi/repositories_searcher/assets/90638460/fc97a817-c0cd-4c78-a76c-f292f1662dc2">
