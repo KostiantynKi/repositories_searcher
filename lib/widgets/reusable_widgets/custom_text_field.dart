@@ -1,4 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:repositories_searcher/bloc/cubit/searcher_cubit.dart';
@@ -27,6 +28,13 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   bool _isFocused = false;
+  Timer? _timer;
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,26 +58,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
             child: TextField(
               controller: widget.controller,
               style: Theme.of(context).textTheme.displayMedium,
-              onTap: () {
-                setState(() {
-                  _isFocused = true;
-                });
-              },
-              onSubmitted: (value) {
-                searcherCubit.searchRepositories(value);
-
-                setState(() {
-                  _isFocused = false;
-                });
-              },
-              onChanged: (value) {
-                if (widget.onChanged != null) {
-                  widget.onChanged!(value);
-                }
-                setState(() {
-                  _isFocused = true;
-                });
-              },
+              onTap: _onTap,
+              onSubmitted: _onSubmitted,
+              onChanged: _onTextChanged,
               onEditingComplete: () {
                 setState(() {
                   _isFocused = false;
@@ -125,5 +116,39 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ],
       ),
     );
+  }
+
+  void _onTap() {
+    setState(() {
+      _isFocused = true;
+    });
+  }
+
+  void _onTextChanged(String value) {
+    if (_timer != null) {
+      _timer!.cancel();
+    }
+    _timer = Timer(Duration(seconds: 2), () {
+      BlocProvider.of<SearcherCubit>(context).searchRepositories(value);
+    });
+
+    if (widget.onChanged != null) {
+      widget.onChanged!(value);
+    }
+    setState(() {
+      _isFocused = true;
+    });
+  }
+
+  void _onSubmitted(String value) {
+    BlocProvider.of<SearcherCubit>(context).searchRepositories(value);
+
+    if (_timer != null) {
+      _timer!.cancel();
+    }
+
+    setState(() {
+      _isFocused = false;
+    });
   }
 }

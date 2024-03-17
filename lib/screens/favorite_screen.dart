@@ -31,6 +31,6 @@ class FavoriteScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: FavoriteWidget());
+        body: const FavoriteWidget());
   }
 }
