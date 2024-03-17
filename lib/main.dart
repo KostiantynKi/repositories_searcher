@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:repositories_searcher/bloc/cubit/searcher_cubit.dart';
 import 'package:repositories_searcher/resource/app_fonts.dart';
+import 'package:repositories_searcher/screens/favorite_screen.dart';
 import 'package:repositories_searcher/screens/search_screen.dart';
+import 'package:repositories_searcher/screens/splash_screen.dart';
 import 'package:repositories_searcher/theme/colors/app_colors.dart';
 
 void main() {
@@ -15,6 +17,12 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => SearcherCubit(),
       child: MaterialApp(
+          initialRoute: '/splash',
+          routes: {
+            '/splash': (context) => SplashScreen(),
+            '/home': (context) => SearchScreen(),
+            '/favorites': (context) => FavoriteScreen(),
+          },
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             textTheme: const TextTheme(
@@ -48,8 +56,9 @@ class MyApp extends StatelessWidget {
               ),
             ),
             scaffoldBackgroundColor: AppColors.backgroundMain,
+          )
+          // home: SearchScreen()
           ),
-          home: SearchScreen()),
     );
   }
 }
