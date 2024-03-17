@@ -129,7 +129,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
       _timer!.cancel();
     }
     _timer = Timer(Duration(seconds: 2), () {
-      BlocProvider.of<SearcherCubit>(context).searchRepositories(value);
+      if (value.isNotEmpty)
+        BlocProvider.of<SearcherCubit>(context).searchRepositories(value);
     });
 
     if (widget.onChanged != null) {

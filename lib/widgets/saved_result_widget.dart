@@ -16,25 +16,43 @@ class _SavedResultWidgetState extends State<SavedResultWidget> {
   @override
   Widget build(BuildContext context) {
     SearcherCubit searcherCubit = BlocProvider.of<SearcherCubit>(context);
+    var text = 'Search History';
 
-    return SizedBox(
-      height: MediaQuery.of(context).size.height / 2,
-      child: ListView.builder(
-        itemCount: widget.state.savedRequests.length,
-        itemBuilder: (context, index) {
-          final repository = widget.state.savedRequests[index];
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            child: SerchCard(
-              text: repository.name,
-              onTap: () {
-                searcherCubit.toggleFavorite(repository);
-              },
-              isFavorite: repository.isFavorite,
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              text,
+              style: Theme.of(context).textTheme.labelLarge,
             ),
-          );
-        },
-      ),
+          ),
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.7,
+          child: ListView.builder(
+            itemCount: widget.state.savedRequests.length,
+            itemBuilder: (context, index) {
+              final reverceRepositoryList =
+                  widget.state.savedRequests.reversed.toList();
+
+              final repository = reverceRepositoryList[index];
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: SerchCard(
+                  text: repository.name,
+                  onTap: () {
+                    searcherCubit.toggleFavorite(repository);
+                  },
+                  isFavorite: repository.isFavorite,
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

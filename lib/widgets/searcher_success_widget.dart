@@ -15,24 +15,40 @@ class SearcherSuccessWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SearcherCubit searcherCubit = BlocProvider.of<SearcherCubit>(context);
+    const text = 'What we have found';
 
-    return Expanded(
-      child: ListView.builder(
-        itemCount: state.repositories.length,
-        itemBuilder: (context, index) {
-          final repository = state.repositories[index];
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            child: SerchCard(
-              text: repository.name,
-              onTap: () {
-                searcherCubit.toggleFavorite(repository);
-              },
-              isFavorite: repository.isFavorite,
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              text,
+              style: Theme.of(context).textTheme.labelLarge,
             ),
-          );
-        },
-      ),
+          ),
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.7,
+          child: ListView.builder(
+            itemCount: state.repositories.length,
+            itemBuilder: (context, index) {
+              final repository = state.repositories[index];
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: SerchCard(
+                  text: repository.name,
+                  onTap: () {
+                    searcherCubit.toggleFavorite(repository);
+                  },
+                  isFavorite: repository.isFavorite,
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

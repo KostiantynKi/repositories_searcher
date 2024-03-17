@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           routes: {
             '/splash': (context) => SplashScreen(),
             '/home': (context) => SearchScreen(),
-            '/favorites': (context) => FavoriteScreen(),
+            '/favorites': (context) => const FavoriteScreen(),
           },
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
               labelLarge: TextStyle(
                 fontFamily: 'Raleway',
                 fontSize: 16.0,
-                fontWeight: AppFonts.regular,
+                fontWeight: AppFonts.bold,
                 color: AppColors.accentPrimary,
                 letterSpacing: 0.0,
               ),

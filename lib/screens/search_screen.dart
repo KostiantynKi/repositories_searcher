@@ -29,7 +29,7 @@ class SearchScreen extends StatelessWidget {
                 child: MyIconButton(
                   icon: AppIcons.favorite,
                   onTap: () {
-                    Navigator.pushNamed(context, '/favorites');
+                    Navigator.pushReplacementNamed(context, '/favorites');
                   },
                 ),
               )),
@@ -47,18 +47,11 @@ class SearchScreen extends StatelessWidget {
               controller: textController,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Text(
-              'What we have found',
-              style: Theme.of(context).textTheme.labelLarge,
-            ),
-          ),
           BlocBuilder<SearcherCubit, SearcherState>(
             builder: (context, state) {
               if (state is SearcherInitial) {
                 searcherCubit.getSavedRequests();
-                return const Center(child: const CupertinoActivityIndicator());
+                return const Center(child: CupertinoActivityIndicator());
               } else if (state is SavedRequests) {
                 return Center(child: SavedResultWidget(state: state));
               } else if (state is SearcherLoading) {
