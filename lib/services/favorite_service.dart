@@ -25,15 +25,10 @@ class FavoriteService {
     await prefs.setStringList(_key, favoriteRepositoriesJson);
   }
 
-  Future<void> removeFavoriteRepository(RepositoryModel repository) async {
+  Future<void> removeFromFavorite(int index) async {
     final prefs = await SharedPreferences.getInstance();
-    final favoriteRepositories = await getFavoriteRepositories();
-
-    favoriteRepositories.removeWhere((repo) => repo == repository);
-
-    final favoriteRepositoriesJson =
-        favoriteRepositories.map((repo) => jsonEncode(repo.toJson())).toList();
-
-    await prefs.setStringList(_key, favoriteRepositoriesJson);
+    List<String> list = prefs.getStringList(_key) ?? [];
+    list.removeAt(index);
+    await prefs.setStringList(_key, list);
   }
 }

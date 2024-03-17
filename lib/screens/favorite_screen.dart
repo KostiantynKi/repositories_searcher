@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:repositories_searcher/bloc/cubit/favorite_cubit/favorite_cubit.dart';
 import 'package:repositories_searcher/resource/app_icons.dart';
 import 'package:repositories_searcher/widgets/favorite_widget.dart';
 import 'package:repositories_searcher/widgets/reusable_widgets/icon_buttons.dart';
@@ -15,40 +13,24 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FavoriteCubit favoriteCubit = BlocProvider.of<FavoriteCubit>(context);
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          title,
-          style: Theme.of(context).textTheme.displayLarge,
-        ),
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            child: MyIconButton(
-              icon: AppIcons.left,
-              onTap: () {
-                Navigator.pop(context);
-              },
+        appBar: AppBar(
+          title: Text(
+            title,
+            style: Theme.of(context).textTheme.displayLarge,
+          ),
+          leading: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              child: MyIconButton(
+                icon: AppIcons.left,
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
             ),
           ),
         ),
-      ),
-      body: BlocBuilder<FavoriteCubit, FavoriteState>(
-        builder: (context, state) {
-          if (state is FavoriteLoaded) {
-            return FavoriteWidget(state: state);
-          } else if (state is FavoriteInitial) {
-            return Center(child: CupertinoActivityIndicator());
-          } else if (state is FavoriteLoading) {
-            favoriteCubit.getFavoriteRepositories();
-
-            return Center(child: CupertinoActivityIndicator());
-          } else
-            return Container();
-        },
-      ),
-    );
+        body: FavoriteWidget());
   }
 }

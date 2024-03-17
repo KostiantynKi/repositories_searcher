@@ -10,7 +10,7 @@ part 'searcher_state.dart';
 class SearcherCubit extends Cubit<SearcherState> {
   SearcherCubit() : super(SearcherInitial());
 
-  FavoriteService _favoriteService = FavoriteService();
+  FavoriteService favoriteService = FavoriteService();
   SavedRepositoryService savedService = SavedRepositoryService();
 
   void searchRepositories(String query) async {
@@ -50,7 +50,7 @@ class SearcherCubit extends Cubit<SearcherState> {
       final repositories = (state as SearcherSuccess).repositories;
       final index = repositories.indexWhere((element) => element == repository);
       if (index != -1) {
-        _favoriteService.addFavoriteRepository(repository);
+        favoriteService.addFavoriteRepository(repository);
 
         final updatedRepositories = List<RepositoryModel>.from(repositories);
         final updatedRepository = updatedRepositories[index]
@@ -59,5 +59,15 @@ class SearcherCubit extends Cubit<SearcherState> {
         emit(SearcherSuccess(updatedRepositories));
       }
     }
+  }
+
+  Future<List<RepositoryModel>> getFavoriteRepositories() async {
+    final List<RepositoryModel> favoritesRepository =
+        await favoriteService.getFavoriteRepositories();
+    return favoritesRepository;
+  }
+
+  Future<void> removeFromFavorite(int index) async {
+    await favoriteService.removeFromFavorite(index);
   }
 }
