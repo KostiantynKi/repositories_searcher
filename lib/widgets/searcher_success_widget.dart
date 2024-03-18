@@ -32,9 +32,9 @@ class SearcherSuccessWidget extends StatelessWidget {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.7,
           child: ListView.builder(
-            itemCount: state.repositories.length,
+            itemCount: state.searchedRepositories.length,
             itemBuilder: (context, index) {
-              final repository = state.repositories[index];
+              final repository = state.searchedRepositories[index];
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: SerchCard(

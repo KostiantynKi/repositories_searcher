@@ -16,14 +16,15 @@ class SearcherCubit extends Cubit<SearcherState> {
   void searchRepositories(String query) async {
     emit(SearcherLoading());
     try {
-      final repositories = await RepositoryRequest.searchRepositories(query);
-      if (repositories.isEmpty) {
+      final searchedRepositories =
+          await RepositoryRequest.searchRepositories(query);
+      if (searchedRepositories.isEmpty) {
         emit(SearcherFailure(
             'Nothing was find for your search.\nPlease check the spelling'));
       } else {
-        savingRequests(repositories.first);
+        savingRequests(searchedRepositories.first);
 
-        emit(SearcherSuccess(repositories));
+        emit(SearcherSuccess(searchedRepositories));
       }
     } catch (e) {
       emit(SearcherFailure('Failed to load repositories'));
@@ -45,19 +46,36 @@ class SearcherCubit extends Cubit<SearcherState> {
     await savedService.addSavedRepository(repository);
   }
 
-  void toggleFavorite(RepositoryModel repository) {
-    if (state is SearcherSuccess) {
-      final repositories = (state as SearcherSuccess).repositories;
-      final index = repositories.indexWhere((element) => element == repository);
-      if (index != -1) {
-        favoriteService.addFavoriteRepository(repository);
+  void toggleFavorite(RepositoryModel repository) async {
+    onToggle(repository);
 
-        final updatedRepositories = List<RepositoryModel>.from(repositories);
-        final updatedRepository = updatedRepositories[index]
-            .copyWith(isFavorite: !repository.isFavorite);
-        updatedRepositories[index] = updatedRepository;
-        emit(SearcherSuccess(updatedRepositories));
-      }
+    await checkOnExistInFavorite(repository);
+  }
+
+  void onToggle(RepositoryModel repository) {
+    if (state is SearcherSuccess) {
+      final searchedRepositories =
+          (state as SearcherSuccess).searchedRepositories;
+      final searchIndex =
+          searchedRepositories.indexWhere((element) => element == repository);
+      final updatedRepositories =
+          List<RepositoryModel>.from(searchedRepositories);
+      final updatedRepository = updatedRepositories[searchIndex]
+          .copyWith(isFavorite: !repository.isFavorite);
+      updatedRepositories[searchIndex] = updatedRepository;
+      emit(SearcherSuccess(updatedRepositories));
+    }
+  }
+
+  Future<void> checkOnExistInFavorite(RepositoryModel repository) async {
+    final List<RepositoryModel> favoriteRepositories =
+        await getFavoriteRepositories();
+    final favoriteIndex = favoriteRepositories
+        .indexWhere((element) => element.name == repository.name);
+    if (favoriteIndex == -1) {
+      favoriteService.addFavoriteRepository(repository);
+    } else if (favoriteIndex != -1) {
+      removeFromFavorite(favoriteIndex);
     }
   }
 

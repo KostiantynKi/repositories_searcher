@@ -23,12 +23,12 @@ class SavedRequests extends SearcherState {
 }
 
 class SearcherSuccess extends SearcherState {
-  final List<RepositoryModel> repositories;
+  final List<RepositoryModel> searchedRepositories;
 
-  SearcherSuccess(this.repositories);
+  SearcherSuccess(this.searchedRepositories);
 
   @override
-  List<Object> get props => [repositories];
+  List<Object> get props => [searchedRepositories];
 }
 
 class SearcherFailure extends SearcherState {

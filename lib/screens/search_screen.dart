@@ -51,16 +51,27 @@ class SearchScreen extends StatelessWidget {
             builder: (context, state) {
               if (state is SearcherInitial) {
                 searcherCubit.getSavedRequests();
-                return const Center(child: CupertinoActivityIndicator());
+                return const Center(
+                    child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: CupertinoActivityIndicator(),
+                ));
               } else if (state is SavedRequests) {
                 return Center(child: SavedResultWidget(state: state));
               } else if (state is SearcherLoading) {
-                return const Center(child: CupertinoActivityIndicator());
+                return const Center(
+                    child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: CupertinoActivityIndicator(),
+                ));
               } else if (state is SearcherEmpty) {
                 return Center(child: Container());
               } else if (state is SearcherFailure) {
                 return Center(
-                  child: Text(state.errorMessage),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(state.errorMessage),
+                  ),
                 );
               } else if (state is SearcherSuccess) {
                 return SearcherSuccessWidget(
