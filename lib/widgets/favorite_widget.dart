@@ -25,13 +25,14 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
         AsyncSnapshot snapshot,
       ) {
         final List<RepositoryModel> itemList = snapshot.data ?? [];
-        if (itemList.isEmpty) {
+        final reverceRepositoryList = itemList.reversed.toList();
+        if (reverceRepositoryList.isEmpty) {
           return const EmptyFavorite();
         } else {
           return ListView.builder(
-            itemCount: itemList.length,
+            itemCount: reverceRepositoryList.length,
             itemBuilder: (context, index) {
-              final item = itemList[index];
+              final item = reverceRepositoryList[index];
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: SerchCard(
